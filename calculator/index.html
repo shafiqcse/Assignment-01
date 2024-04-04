@@ -43,6 +43,12 @@
             <input type="text" id="n1" class="form-control"/>
         </div>
 
+
+         <!-- For Number 2 -->
+        <div class="number2 pb-3">
+            <label for="n2" class="form-label">Number 2</label>
+            <input type="text" id="n2" class="form-control"/>
+        </div>
         <!-- For Operation -->
         <div class="ope pb-2">
             <label for="operators" class="form-label">Operation</label>
@@ -54,11 +60,7 @@
             </select>
         </div>
 
-        <!-- For Number 2 -->
-        <div class="number2 pb-3">
-            <label for="n2" class="form-label">Number 2</label>
-            <input type="text" id="n2" class="form-control"/>
-        </div>
+       
 
         <!-- For Button -->
         <button class="btn btn-primary" onclick="calc();">Calculate</button> <br><br>
@@ -72,36 +74,54 @@
     <!-- Bootstrap JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <!-- JS Function -->
-    <script> 
-        function calc()
-        {
-            let n1 = parseFloat(document.getElementById('n1').value);
-            let n2 = parseFloat(document.getElementById('n2').value);
-            let oper = document.getElementById('operators').value;
-            
-            if(oper === '+')
-            {
-                document.getElementById('result').value = n1+n2;
-            }
-            
-            if(oper === '-')
-            {
-                document.getElementById('result').value = n1-n2;
-            }
-            
-            if(oper === '/')
-            {
-                document.getElementById('result').value = n1/n2;
-            }
-            
-            if(oper === 'X')
-            {
-                document.getElementById('result').value = n1*n2;
-            }
+<!-- JS Function -->
+<script> 
+    function calc() {
+        let n1 = parseFloat(document.getElementById('n1').value);
+        let n2 = parseFloat(document.getElementById('n2').value);
+        let oper = document.getElementById('operators').value;
+        let resultField = document.getElementById('result');
 
+        // Check if either input field is blank or not a number
+        if (isNaN(n1) || isNaN(n2)) {
+            resultField.value = 'Please enter valid numbers in both fields.';
+            resultField.style.backgroundColor = '#FFCDCD';
+            return;
         }
-    </script>
+
+        // Perform calculation
+        switch (oper) {
+            case '+':
+                resultField.value = n1 + n2;
+                resultField.style.backgroundColor = '#76D7C4';
+                break;
+            case '-':
+                resultField.value = n1 - n2;
+                resultField.style.backgroundColor = '#76D7C4';
+                break;
+            case '/':
+                // Check if division by zero
+                if (n2 === 0) {
+                    resultField.value = 'Cannot divide by zero.';
+                    resultField.style.backgroundColor = '#FFCDCD';
+                    return;
+                }
+                resultField.value = n1 / n2;
+                resultField.style.backgroundColor = '#76D7C4';
+                break;
+            case 'X':
+                resultField.value = n1 * n2;
+                resultField.style.backgroundColor = '#76D7C4';
+                break;
+            default:
+                resultField.value = 'Invalid operation selected.';
+                resultField.style.backgroundColor = '#FFCDCD';
+        }
+    }
+</script>
+
+
+
 
 </body>
 </html>
